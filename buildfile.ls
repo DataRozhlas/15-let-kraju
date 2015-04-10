@@ -12,6 +12,7 @@ externalStyles =
 
 externalData =
   "kraje": "#__dirname/data/kraje.topo.json"
+  "stats": "#__dirname/data/kraje.tsv"
 
 preferScripts = <[utils.js postInit.js _loadData.js ../data.js init.js _loadExternal.js]>
 deferScripts = <[ Graph.js base.js ]>

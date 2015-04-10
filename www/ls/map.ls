@@ -32,4 +32,3 @@ class ig.Map
       ..attr \r 2
       ..attr \cx -> projection it.centroid .0
       ..attr \cy -> projection it.centroid .1
-
