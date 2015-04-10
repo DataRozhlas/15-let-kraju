@@ -1,5 +1,6 @@
 class ig.Barchart
   (container, kraje) ->
+    ig.Events @
     @kraje = kraje.slice!
     @element = container.append \div
       ..attr \class \barchart
@@ -11,6 +12,10 @@ class ig.Barchart
           it.nazev
             .replace " kraj" ""
             .replace "Hlavní město " ""
+
+      ..on \mouseover ~> @emit \highlight, it
+      ..on \touchstart ~> @emit \highlight, it
+      ..on \mouseout ~> @emit \downlight
     @barContainers = @rows.append \div
       ..attr \class \bar-container
     @bars = @barContainers.append \div
@@ -38,3 +43,9 @@ class ig.Barchart
     widths = []
     @labels.each -> widths.push @clientWidth
     maxWidth = Math.max ...widths
+
+  highlight: (kraj) ->
+    @rows.classed \highlight -> it is kraj
+
+  downlight: ->
+    @rows.classed \highlight no

@@ -12,3 +12,7 @@ displayMetric = (metric) ->
 
 displayMetric metrics.0
 selector.on \selected displayMetric
+barchart.on \highlight map~highlight
+map.on \highlight barchart~highlight
+barchart.on \downlight map~downlight
+map.on \downlight barchart~downlight
