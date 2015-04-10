@@ -20,3 +20,4 @@ container = d3.select ig.containers.base
 map = new ig.Map container
 barchart = new ig.Barchart container, kraje
   ..displayMetric metrics.0
+new ig.Selector container, metrics, metrics.0
