@@ -6,10 +6,6 @@ class ig.Map
 
     width = map.node!clientWidth
     {features} = topojson.feature ig.data.kraje, ig.data.kraje.objects.data
-    for feature in features => feature.centroid = d3.geo.centroid feature
-    features[11].centroid.1 += 0.3
-    features[11].centroid.0 += 0.2
-    features[8].centroid.1 -= 0.1
     {width, height, projection} = ig.utils.geo.getFittingProjection features, {width}
     mesh = topojson.mesh ig.data.kraje, ig.data.kraje.objects.data
 
@@ -27,8 +23,3 @@ class ig.Map
     mapSvg.append \path
       .attr \class \mesh
       .attr \d path mesh
-
-    mapSvg.selectAll \circle .data features .enter!append \circle
-      ..attr \r 2
-      ..attr \cx -> projection it.centroid .0
-      ..attr \cy -> projection it.centroid .1
