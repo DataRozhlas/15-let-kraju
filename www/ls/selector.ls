@@ -1,12 +1,10 @@
-
-
 class ig.Selector
   (container, metrics, selectedMetric, stats) ->
     ig.Events @
     @element = container.append \div
       ..attr \class \selector
     @element.append \h2
-      ..html "Vyberte metriku"
+      ..html "Co vás zajímá?"
     list = @element.append \ul
     @listItems = list.selectAll \li .data stats .enter!append \li
       ..append \a
