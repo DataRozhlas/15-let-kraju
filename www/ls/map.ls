@@ -47,11 +47,11 @@ class ig.Map
       ..range @colors
 
   displayMetric: (metric) ->
-    extent = d3.extent @kraje.map -> it[metric]
+    extent = d3.extent @kraje.map -> it[metric.id]
     @scale.domain ig.utils.divideToParts extent, 9
 
     @krajePath.attr \fill (d, i) ~>
-      @scale @krajeAssoc[krajeIds[i]][metric]
+      @scale @krajeAssoc[krajeIds[i]][metric.id]
 
   highlight: (kraj) ->
     @krajePath.classed \highlight (d, i) -> krajeIds[i] == kraj.kod

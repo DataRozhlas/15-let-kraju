@@ -1,18 +1,20 @@
+
+
 class ig.Selector
-  (container, metrics, selectedMetric) ->
+  (container, metrics, selectedMetric, stats) ->
     ig.Events @
     @element = container.append \div
       ..attr \class \selector
     @element.append \h2
       ..html "Vyberte metriku"
     list = @element.append \ul
-    @listItems = list.selectAll \li .data metrics .enter!append \li
+    @listItems = list.selectAll \li .data stats .enter!append \li
       ..append \a
-        ..html -> it
+        ..html -> it.name
         ..attr \href \#
-        ..on \click ~>
-          selectedMetric := it
-          @listItems.classed \active -> it is selectedMetric
+        ..on \click ({id}:metric) ~>
+          selectedMetric := id
+          @listItems.classed \active -> it.id is selectedMetric
           d3.event.preventDefault!
-          @emit \selected it
-      ..classed \active -> it is selectedMetric
+          @emit \selected metric
+      ..classed \active -> it.id is selectedMetric

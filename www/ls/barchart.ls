@@ -4,6 +4,7 @@ class ig.Barchart
     @kraje = kraje.slice!
     @element = container.append \div
       ..attr \class \barchart
+    @header = @element.append \h3
     @rows = @element.selectAll \div.row .data @kraje .enter!append \div
       ..attr \class \row
       ..append \span
@@ -29,14 +30,23 @@ class ig.Barchart
       ..range [0 100]
 
   displayMetric: (metric) ->
-    @kraje.sort (a, b) -> b[metric] - a[metric]
+    @header.html -> metric.text
+    @kraje.sort (a, b) -> b[metric.id] - a[metric.id]
     for kraj, index in @kraje => kraj.index = index
     @rows.style \top ~> "#{it.index * @rowHeight}px"
-    @labels.html -> ig.utils.formatNumber it[metric]
+    @labels.html ->
+      value = it[metric.id]
+      decimals =
+        | value < 10 => 2
+        | value < 100 => 1
+        | otherwise  => 0
+      formatted = ig.utils.formatNumber value, decimals
+      "#{formatted} #{metric.unit}"
+
     labelMaxWidth = @getLabelMaxWidth!
-    @scale.domain [0, d3.max @kraje.map -> it[metric]]
+    @scale.domain [0, d3.max @kraje.map -> it[metric.id]]
     @barContainers.style \padding-right "#{labelMaxWidth}px"
-    @bars.style \width ~> "#{@scale it[metric]}%"
+    @bars.style \width ~> "#{@scale it[metric.id]}%"
 
 
   getLabelMaxWidth: ->

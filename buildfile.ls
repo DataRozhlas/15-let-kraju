@@ -3,11 +3,9 @@ require! async
 process.chdir __dirname
 
 externalScripts =
-  \https://samizdat.cz/tools/tooltip/v1.1.4.d3.js
   ...
 
 externalStyles =
-  \https://samizdat.cz/tools/tooltip/v1.1.4.css
   ...
 
 externalData =
