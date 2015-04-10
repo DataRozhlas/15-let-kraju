@@ -5,11 +5,53 @@
 .ig
   @import basics
 .ig
+  font-family Roboto, helvetica, arial, sans-serif
+  float left
   .map
     position absolute
-    width 400px
+    width 500px
+    top 120px
+    margin-left 30px
     svg
       .mesh
         fill none
         stroke black
         stroke rgb(103,0,13)
+  .barchart
+    position absolute
+    width 400px
+    right 0px
+    .row
+      position absolute
+      transition top 0.2s
+      width 100%
+      padding 5px 0px
+      .bar-container
+        width 100%
+        position absolute
+        top 0px
+        left 0px
+        bottom 0px
+        padding-left 170px
+        .bar
+          height 100%
+          position relative
+          .fill
+            position absolute
+            top 4px
+            bottom @top
+            background ColorRed
+            width 100%
+            border-top-right-radius 4px
+            border-bottom-right-radius 4px
+          .label
+            position absolute
+            white-space nowrap
+            top 0px
+            left 100%
+            padding 5px 0px 5px 10px
+      .name
+        display block
+        width 150px
+        text-align right
+
