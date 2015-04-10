@@ -52,3 +52,7 @@ insertThousandSeparator = (input, separator = ' ') ->
       if isThirdNumeral and not isLast
         out.unshift separator
     out.join ''
+
+utils.divideToParts = (extent, breaks) ->
+  for i in [0 til breaks]
+    extent.0 + i * ((extent.1 - extent.0) / (breaks - 1))

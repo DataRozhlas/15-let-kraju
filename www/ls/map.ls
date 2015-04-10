@@ -1,6 +1,22 @@
+krajeIds =
+  "CZ010"
+  "CZ031"
+  "CZ064"
+  "CZ041"
+  "CZ063"
+  "CZ052"
+  "CZ051"
+  "CZ080"
+  "CZ071"
+  "CZ053"
+  "CZ032"
+  "CZ020"
+  "CZ042"
+  "CZ072"
+
 class ig.Map
-  (container) ->
-    colors = ['rgb(255,245,240)','rgb(254,224,210)','rgb(252,187,161)','rgb(252,146,114)','rgb(251,106,74)','rgb(239,59,44)','rgb(203,24,29)','rgb(165,15,21)','rgb(103,0,13)']
+  (container, @kraje, @krajeAssoc) ->
+    @colors = ['rgb(255,245,240)','rgb(254,224,210)','rgb(252,187,161)','rgb(252,146,114)','rgb(251,106,74)','rgb(239,59,44)','rgb(203,24,29)','rgb(165,15,21)','rgb(103,0,13)']
     map = container.append \div
       ..attr \class \map
 
@@ -15,11 +31,21 @@ class ig.Map
       ..attr \width width
       ..attr \height height
 
-    krajePath = mapSvg.selectAll \path .data features .enter!append \path
+    @krajePath = mapSvg.selectAll \path .data features .enter!append \path
       ..attr \class \kraj
       ..attr \d path
-      ..attr \fill colors[0]
+      ..attr \fill @colors[0]
 
     mapSvg.append \path
       .attr \class \mesh
       .attr \d path mesh
+    @scale = d3.scale.linear!
+      ..range @colors
+
+  displayMetric: (metric) ->
+    extent = d3.extent @kraje.map -> it[metric]
+    @scale.domain ig.utils.divideToParts extent, 9
+
+    @krajePath.attr \fill (d, i) ~>
+      @scale @krajeAssoc[krajeIds[i]][metric]
+
